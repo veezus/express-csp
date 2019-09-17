@@ -7,7 +7,7 @@ express-csp
 Usage
 -----
 
-This is an Express extension which allows you to set the [`content-security-policy`](https://w3c.github.io/webappsec/specs/content-security-policy/) for your Express Application. 
+This is an Express extension which allows you to set the [`content-security-policy`](https://w3c.github.io/webappsec-csp/) for your Express Application.
 
 API
 ---
@@ -42,15 +42,15 @@ a config object containing the following properties:
 
 
 #### policy
-An object containing necessary information to generate policy directives to be added to the [`content-security-policy`](http://w3c.github.io/webappsec/specs/content-security-policy/#content-security-policy-header-field) header. The `policy` object can contain the following possible properties:
+An object containing necessary information to generate policy directives to be added to the [`content-security-policy`](https://w3c.github.io/webappsec-csp/#csp-header) header. The `policy` object can contain the following possible properties:
 
 ##### useScriptNonce
 
-When set to true, a [`nonce`](http://w3c.github.io/webappsec/specs/content-security-policy/#script-src-the-nonce-attribute) will be generated for the `'script-src'` directive of each response and made available as the `res.locals.cspToken` value. This value can then be used in your templates to allow for specified inline script blocks. If [`useStyleNonce`](#useStyleNonce) is also true, the same token will be added to the `'style-src'` directive and the same token will be available for inline style blocks.
+When set to true, a [`nonce`](https://w3c.github.io/webappsec-csp/#directive-script-src) will be generated for the `'script-src'` directive of each response and made available as the `res.locals.cspToken` value. This value can then be used in your templates to allow for specified inline script blocks. If [`useStyleNonce`](#useStyleNonce) is also true, the same token will be added to the `'style-src'` directive and the same token will be available for inline style blocks.
 
 ##### useStyleNonce
 
-When set to true, a [`nonce`](http://w3c.github.io/webappsec/specs/content-security-policy/#script-src-the-nonce-attribute) will be generated for the `'style-src'` directive of each response and made available as the `res.locals.cspToken` value. This value can then be used in your templates to allow for specified inline script and style blocks. If [`useScriptNonce`](#useScriptNonce) is also true, the same token will be added to the `'script-src'` directive and the same token will be available for inline script blocks.
+When set to true, a [`nonce`](https://w3c.github.io/webappsec-csp/#directive-style-src) will be generated for the `'style-src'` directive of each response and made available as the `res.locals.cspToken` value. This value can then be used in your templates to allow for specified inline script and style blocks. If [`useScriptNonce`](#useScriptNonce) is also true, the same token will be added to the `'script-src'` directive and the same token will be available for inline script blocks.
 
 ```html
 <script nonce="{{res.locals.cspToken}}">
@@ -59,40 +59,41 @@ foo();
 ```
 
 ##### directives 
-An object of key/value pairs representing [CSP Policy Directives](http://w3c.github.io/webappsec/specs/content-security-policy/#directives) in which the keys refer to the directive
+An object of key/value pairs representing [CSP Policy Directives](https://w3c.github.io/webappsec-csp/#directives) in which the keys refer to the directive
 name and the value is an array of rules to apply to that value. 
 
-- [`base-uri`](http://w3c.github.io/webappsec/specs/content-security-policy/#directive-base-uri)
-- [`block-all-mixed-content`](http://w3c.github.io/webappsec/specs/content-security-policy/#block-all-mixed-content)
-- [`child-src`](http://w3c.github.io/webappsec/specs/content-security-policy/#directive-child-src)
-- [`connect-src`](http://w3c.github.io/webappsec/specs/content-security-policy/#directive-connect-src)
-- [`default-src`](http://w3c.github.io/webappsec/specs/content-security-policy/#directive-default-src)
-- [`font-src`](http://w3c.github.io/webappsec/specs/content-security-policy/#directive-font-src)
-- [`form-action`](http://w3c.github.io/webappsec/specs/content-security-policy/#directive-form-action)
-- [`frame-ancestors`](http://w3c.github.io/webappsec/specs/content-security-policy/#directive-frame-ancestors)
-- [`frame-src`](http://w3c.github.io/webappsec/specs/content-security-policy/#frame-src)
-- [`img-src`](http://w3c.github.io/webappsec/specs/content-security-policy/#img-src)
-- [`media-src`](http://w3c.github.io/webappsec/specs/content-security-policy/#media-src)
-- [`object-src`](http://w3c.github.io/webappsec/specs/content-security-policy/#media-src)
-- [`plugin-types`](http://w3c.github.io/webappsec/specs/content-security-policy/#directive-plugin-types)
-- [`report-uri`](http://w3c.github.io/webappsec/specs/content-security-policy/#directive-report-uri)
-- [`reflected-xss`](http://w3c.github.io/webappsec/specs/content-security-policy/#directive-reflected-xss)
-- [`require-sri-for`](http://w3c.github.io/webappsec/specs/content-security-policy/#directive-require-sri-for)
-- [`script-src`](http://w3c.github.io/webappsec/specs/content-security-policy/#directive-script-src)
-- [`style-src`](http://w3c.github.io/webappsec/specs/content-security-policy/#directive-style-src)
-- [`upgrade-insecure-requests`](http://w3c.github.io/webappsec/specs/content-security-policy/#directive-upgrade-insecure-requests)
-- [`worker-src`](http://w3c.github.io/webappsec/specs/content-security-policy/#directive-worker-src)
-- [`manifest-src`](http://w3c.github.io/webappsec/specs/content-security-policy/#directive-manifest-src)
+- [`base-uri`](https://w3c.github.io/webappsec-csp/#directive-base-uri)
+- [`block-all-mixed-content`](https://w3c.github.io/webappsec-csp/#directives-elsewhere)
+- [`child-src`](https://w3c.github.io/webappsec-csp/#directive-child-src)
+- [`connect-src`](https://w3c.github.io/webappsec-csp/#directive-connect-src)
+- [`default-src`](https://w3c.github.io/webappsec-csp/#directive-default-src)
+- [`font-src`](https://w3c.github.io/webappsec-csp/#directive-font-src)
+- [`form-action`](https://w3c.github.io/webappsec-csp/#directive-form-action)
+- [`frame-ancestors`](https://w3c.github.io/webappsec-csp/#directive-frame-ancestors)
+- [`frame-src`](https://w3c.github.io/webappsec-csp/#frame-src)
+- [`img-src`](https://w3c.github.io/webappsec-csp/#img-src)
+- [`media-src`](https://w3c.github.io/webappsec-csp/#media-src)
+- [`object-src`](https://w3c.github.io/webappsec-csp/#directive-object-src)
+- [`plugin-types`](https://w3c.github.io/webappsec-csp/#directive-plugin-types)
+- [`prefetch-src`](https://w3c.github.io/webappsec-csp/#directive-prefetch-src)
+- [`report-uri`](https://w3c.github.io/webappsec-csp/#directive-report-uri)
+- [`reflected-xss`](https://w3c.github.io/webappsec-csp/#directive-report-uri)
+- [`require-sri-for`](https://w3c.github.io/webappsec-csp/#directive-report-uri)
+- [`script-src`](https://w3c.github.io/webappsec-csp/#directive-script-src)
+- [`style-src`](https://w3c.github.io/webappsec-csp/#directive-style-src)
+- [`upgrade-insecure-requests`](https://w3c.github.io/webappsec-csp/#directive-report-uri)
+- [`worker-src`](https://w3c.github.io/webappsec-csp/#directive-worker-src)
+- [`manifest-src`](https://w3c.github.io/webappsec-csp/#directive-manifest-src)
 
 
 
 #### reportPolicy
-An object containing necessary information to generate policy directives to be added to the [`content-security-policy-report-only`](http://w3c.github.io/webappsec/specs/content-security-policy/#content-security-policy-report-only-header-field) header. The `reportPolicy` object can contain the same properties specified for the [`policy`](#policy) object.
+An object containing necessary information to generate policy directives to be added to the [`content-security-policy-report-only`](https://w3c.github.io/webappsec-csp/#cspro-header) header. The `reportPolicy` object can contain the same properties specified for the [`policy`](#policy) object.
 
 
 ### signScript
 
-Generates and adds a [valid hash](http://w3c.github.io/webappsec/specs/content-security-policy/#source-list-valid-hashes) to the `script-src` directive. 
+Generates and adds a [valid hash](https://w3c.github.io/webappsec-csp/#directive-script-src) to the `script-src` directive. 
 
 At the app level
 ```js
@@ -127,7 +128,7 @@ bar();
 
 ### signStyle
 
-Generates and adds a [valid hash](http://w3c.github.io/webappsec/specs/content-security-policy/#source-list-valid-hashes) to the `style-src` directive. 
+Generates and adds a [valid hash](https://w3c.github.io/webappsec-csp/#directive-style-src) to the `style-src` directive. 
 
 ```js
 app.signStyle('body{background-color:#eee}');
